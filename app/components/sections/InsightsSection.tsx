@@ -1,6 +1,7 @@
 // components/InsightsSection.tsx
 import React from "react";
 import Image from "next/image";
+import { LuArrowUpRight } from "react-icons/lu";
 
 interface BlogCard {
   title: string;
@@ -9,6 +10,7 @@ interface BlogCard {
   tags: string[];
   image: string;
   link: string;
+  bgColor: string;
 }
 
 const blogCards: BlogCard[] = [
@@ -19,6 +21,7 @@ const blogCards: BlogCard[] = [
     tags: ["Digital Marketing", "eCommerce", "Measurement"],
     image: "/images/b6bc2835-dd5e-42f4-aab4-0f1283492d0b-1024x683.webp",
     link: "https://powerdigitalmarketing.com/blog/grow-ltv-food-beverage-low-aov/",
+    bgColor: "bg-[#7756FF]",
   },
   {
     title:
@@ -28,6 +31,7 @@ const blogCards: BlogCard[] = [
     tags: ["Brand Building", "Digital Marketing", "eCommerce", "Measurement"],
     image: "/images/food-beverage.webp",
     link: "https://powerdigitalmarketing.com/blog/food-beverage-messaging-compliance/",
+    bgColor: "bg-[#ABABAB]",
   },
   {
     title:
@@ -35,8 +39,9 @@ const blogCards: BlogCard[] = [
     author: "Tara Johnson",
     date: "September 22, 2025",
     tags: ["Digital Marketing", "eCommerce", "Measurement"],
-    image: "/images/Screenshot-2025-09-22-at-12.36.56-AM-1024x750.webp",
+    image: "/images/Screenshot-2025-09-22-at-12.webp",
     link: "https://powerdigitalmarketing.com/blog/cpg-brand-growth-power-circuit/",
+    bgColor: "bg-[#2B2A29]",
   },
   {
     title:
@@ -46,6 +51,7 @@ const blogCards: BlogCard[] = [
     tags: ["Digital Marketing", "eCommerce", "Measurement"],
     image: "/images/RevenueFashion-1024x683.jpg",
     link: "https://powerdigitalmarketing.com/blog/power-circuit-fashion-brand-growth/",
+    bgColor: "bg-[#F5F5F5]",
   },
   {
     title:
@@ -60,6 +66,7 @@ const blogCards: BlogCard[] = [
     ],
     image: "/images/influencer-marketing-1024x683.jpg",
     link: "https://powerdigitalmarketing.com/blog/influencer-marketing-meta-targeting-changes/",
+    bgColor: "bg-[#AFAAF9]",
   },
 ];
 
@@ -104,49 +111,57 @@ const InsightsSection: React.FC = () => {
         {blogCards.map((card, i) => (
           <div
             key={i}
-            className={`col-span-12 md:col-span-6 lg:col-span-4 rounded-lg overflow-hidden relative group ${
+            className={`col-span-12 rounded-lg overflow-hidden relative group ${
               i === 0 || i === 1 ? "md:col-span-6" : "md:col-span-4"
-            }`}
+            } ${i == 3 ? "border border-black" : "border-none"}`}
           >
-            <article className="flex flex-col justify-between h-full rounded-lg overflow-hidden shadow relative">
+            <article className="flex flex-col-reverse justify-between-between h-full rounded-lg overflow-hidden shadow relative">
               {/* Content */}
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-3">
+              <div className={`p-6 lg:p-8 ${card.bgColor} flex-1`}>
+                <div className="flex flex-wrap gap-3 mb-3">
                   {card.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="inline-block rounded-full border border-gray-800 text-gray-800 text-xs px-3 py-1 uppercase"
+                      className="inline-block rounded-full border border-gray-800 text-gray-800 text-xs lg:text-[0.8rem] font-medium px-3 py-1 uppercase"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <h3 className="text-lg md:text-xl font-semibold mb-3">
+                <h3 className="text-lg lg:text-2xl font-bold mb-6">
                   {card.title}
                 </h3>
                 <p className="text-xs md:text-sm font-medium text-gray-600">
                   {card.author} | {card.date}
                 </p>
               </div>
-
               {/* Image */}
-              <div className="h-[200px] md:h-[250px] overflow-hidden">
+              <div
+                className={`h-full ${
+                  i == 0 || i == 1 ? "md:max-h-[30.6vw]" : "md:max-h-[19.6vw]"
+                } overflow-hidden`}
+              >
                 <Image
                   src={card.image}
                   alt={card.title}
                   width={600}
                   height={400}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105`}
                 />
               </div>
 
               {/* Action */}
-              <div className="absolute top-10 right-5">
+              <div className="absolute bottom-0 left-0 top-[50px] w-full flex items-end justify-end p-5">
                 <a
                   href={card.link}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-300 transition"
+                  className={`flex h-10 w-10 items-center ${
+                    i == 3 ? "border border-black" : "border-none"
+                  } justify-center rounded-full bg-gray-100 hover:bg-gray-300 transition"
+                `}
                 >
-                  <i>↗</i>
+                  <i>
+                    <LuArrowUpRight />
+                  </i>
                 </a>
               </div>
             </article>
